@@ -21,6 +21,9 @@ class MyStreamListener(tweepy.StreamListener):
             return
 
         if "big data" in status.text.lower():
+            if status.text.lower().startswith("rt"):
+                return
+
             new_text = status.text
             new_text = re.sub(r'(\bel\b) (big data)', r'\2', new_text, flags=re.IGNORECASE)
             new_text = re.sub(r'(\bal\b) (big data)', r'a \2', new_text, flags=re.IGNORECASE)
@@ -30,7 +33,18 @@ class MyStreamListener(tweepy.StreamListener):
             new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
             if len(new_text) <= 140:
-                api.update_status(new_text)
+                try:
+                    api.update_status(new_text)
+                except tweepy.TweepError as e:
+                    try:
+                        error_code = e.message[0]['code']
+                        if error_code == 187:
+                            return
+                        else:
+                            raise e
+                    except Exception as f:
+                        logging.error(str(f))
+                        raise
 
             logging.info(new_text)
             time.sleep(5)
