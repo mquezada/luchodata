@@ -26,6 +26,9 @@ class MyStreamListener(tweepy.StreamListener):
                 return
 
             new_text = status.text
+            if new_text.startswith("@"):
+                new_text = '.' + new_text
+
             new_text = re.sub(r'(\bel\b) (big data)', r'\2', new_text, flags=re.IGNORECASE)
             new_text = re.sub(r'(\bal\b) (big data)', r'a \2', new_text, flags=re.IGNORECASE)
             new_text = re.sub(r'(\bdel\b) (big data)', r'de \2', new_text, flags=re.IGNORECASE)
