@@ -4,6 +4,7 @@ import tweepy
 import re
 from keys import consumer_key, consumer_secret, access_token, access_token_secret
 import time
+import random
 
 import logging
 
@@ -32,9 +33,13 @@ class MyStreamListener(tweepy.StreamListener):
             new_text = re.sub(r'big', 'Luis', new_text, flags=re.IGNORECASE)
             new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
+            logging.info(new_text)
             if len(new_text) <= 140:
                 try:
-                    api.update_status(new_text)
+                    if random.random() >= 0.25:
+                        api.update_status(new_text)
+                    else:
+                        logging.info("Last message not triggered")
                 except tweepy.TweepError as e:
                     try:
                         error_code = e.message[0]['code']
@@ -45,9 +50,6 @@ class MyStreamListener(tweepy.StreamListener):
                     except Exception as f:
                         logging.error(str(f))
                         raise
-
-            logging.info(new_text)
-            time.sleep(5)
 
 
 myStreamListener = MyStreamListener()
