@@ -3,7 +3,7 @@
 import tweepy
 import re
 from keys import consumer_key, consumer_secret, access_token, access_token_secret
-import time
+import codecs
 import random
 
 import logging
@@ -16,7 +16,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
-with open('luchodata.txt', 'a') as f:
+with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
     class MyStreamListener(tweepy.StreamListener):
         def on_status(self, status):
             if status.user.screen_name == 'luchodata':
