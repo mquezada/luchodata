@@ -44,8 +44,7 @@ class MyStreamListener(tweepy.StreamListener):
                     else:
                         logging.info("Last message not triggered")
                 except tweepy.TweepError as e:
-                    error_code = e.reason[0]['code']
-                    if error_code == 187:
+                    if e.api_code == 187:
                         return
                     else:
                         raise e
