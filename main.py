@@ -33,6 +33,11 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'(\bel\b) (big data)', r'\2', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'(\bal\b) (big data)', r'a \2', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'(\bdel\b) (big data)', r'de \2', new_text, flags=re.IGNORECASE)
+
+                new_text = re.sub(r'(\w+)(ar)\b (big data)', r'\1\2 a \3', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\w+)(er)\b (big data)', r'\1\2 a \3', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\w+)(ir)\b (big data)', r'\1\2 a \3', new_text, flags=re.IGNORECASE)
+
                 new_text = re.sub(r'big data', 'Luis Jara', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'big', 'Luis', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
