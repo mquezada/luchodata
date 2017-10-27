@@ -15,6 +15,8 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
+BIG_DATA = r'([\'\"]?big data[\'\"]?)'
+
 
 with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
     class MyStreamListener(tweepy.StreamListener):
@@ -30,13 +32,13 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 if new_text.startswith("@"):
                     new_text = '.' + new_text
 
-                new_text = re.sub(r'(\bel\b) (big data)', r'\2', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'(\bal\b) (big data)', r'a \2', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'(\bdel\b) (big data)', r'de \2', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\bel\b) ' + BIG_DATA, r'\2', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\bal\b) ' + BIG_DATA, r'a \2', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\bdel\b) ' + BIG_DATA, r'de \2', new_text, flags=re.IGNORECASE)
 
-                new_text = re.sub(r'(\w+)(ar)\b (big data)', r'\1\2 a \3', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'(\w+)(er)\b (big data)', r'\1\2 a \3', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'(\w+)(ir)\b (big data)', r'\1\2 a \3', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\w+)(ar)\b ' + BIG_DATA, r'\1\2 a \3', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\w+)(er)\b ' + BIG_DATA, r'\1\2 a \3', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'(\w+)(ir)\b ' + BIG_DATA, r'\1\2 a \3', new_text, flags=re.IGNORECASE)
 
                 new_text = re.sub(r'big data', 'Luis Jara', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'big', 'Luis', new_text, flags=re.IGNORECASE)
