@@ -16,11 +16,29 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 BIG_DATA = r'([\'\"]?big data[\'\"]?)'
+EMOJIS = ['📊', '🎤', '📈', '📉', '🎶', '🎵', '🤖', '❤️']
+HT = ['', '#']
+
+TRIGGERS = ['emocion', 
+            'amor', 
+            'music', 
+            'spotify', 
+            'romance', 
+            'pasion',
+            'cancion',
+            'chile',]
+
+
+def triggers(text):
+    tokens = set(text.lower().split())
+    return TRIGGERS & tokens
 
 
 with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
     class MyStreamListener(tweepy.StreamListener):
         def on_status(self, status):
+            new_text = status.text
+
             if status.user.screen_name == 'luchodata':
                 return
 
@@ -28,9 +46,16 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 if status.text.lower().startswith("rt"):
                     return
 
-                new_text = status.text
+                if "¿Sabes qué es Luis Jara? [VIDEO]" in new_text:
+                    return
+
+                if 'marketing' in new_text.lower():
+                    return
+
                 if new_text.startswith("@"):
                     new_text = '.' + new_text
+
+                new_text = re.sub(r'&amp;', r'&', new_text)
 
                 new_text = re.sub(r'(\bel\b) ' + BIG_DATA, r'\2', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'(\bal\b) ' + BIG_DATA, r'a \2', new_text, flags=re.IGNORECASE)
@@ -44,10 +69,18 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'big', 'Luis', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
+                if random.random() > 0.9 and len(new_text) <= 138:
+                    ht = random.choice(HT)
+                    if len(ht) > 0 and len(new_text) == 138:
+                        ht = ''
+
+                    new_text += ' ' + ht + random.choice(EMOJIS)
+
                 logging.info(new_text)
+
                 if len(new_text) <= 140:
                     try:
-                        if random.random() >= 0.25:
+                        if triggers(new_text) or random.random() >= 0.7:
                             api.update_status(new_text)
                             f.write(new_text + '\n')
                         else:
@@ -57,6 +90,8 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                             return
                         else:
                             raise e
+                else:
+                    logging.info("Text too long; not triggered")
 
 
     myStreamListener = MyStreamListener()
