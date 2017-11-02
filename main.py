@@ -45,9 +45,6 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 if status.text.lower().startswith("rt"):
                     return
 
-                if "¿Sabes qué es Luis Jara?" in new_text:
-                    return
-
                 if 'marketing' in new_text.lower():
                     return
 
