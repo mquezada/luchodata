@@ -16,8 +16,6 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 BIG_DATA = r'([\'\"]?big data[\'\"]?)'
-EMOJIS = ['📊', '🎤', '📈', '📉', '🎶', '🎵', '🤖', '❤️']
-HT = ['', '#']
 
 TRIGGERS = ['emocion', 
             'amor', 
@@ -46,7 +44,7 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 if status.text.lower().startswith("rt"):
                     return
 
-                if "¿Sabes qué es Luis Jara? [VIDEO]" in new_text:
+                if "¿Sabes qué es Luis Jara?" in new_text:
                     return
 
                 if 'marketing' in new_text.lower():
@@ -69,12 +67,7 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'big', 'Luis', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
-                if random.random() > 0.9 and len(new_text) <= 138:
-                    ht = random.choice(HT)
-                    if len(ht) > 0 and len(new_text) == 138:
-                        ht = ''
-
-                    new_text += ' ' + ht + random.choice(EMOJIS)
+                new_text = re.sub(r'sociedad', 'televisión', new_text, flags=re.IGNORECASE)
 
                 logging.info(new_text)
 
