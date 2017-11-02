@@ -36,6 +36,7 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
     class MyStreamListener(tweepy.StreamListener):
         def on_status(self, status):
             new_text = status.text
+            logging.info(new_text)
 
             if status.user.screen_name == 'luchodata':
                 return
