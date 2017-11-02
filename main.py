@@ -29,7 +29,7 @@ TRIGGERS = ['emocion',
 
 def triggers(text):
     tokens = set(text.lower().split())
-    return TRIGGERS & tokens
+    return set(TRIGGERS) & tokens
 
 
 with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
