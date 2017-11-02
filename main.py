@@ -38,14 +38,11 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
             new_text = status.text
             logging.info(new_text)
 
-            if status.user.screen_name == 'luchodata':
-                return
-
-            if "big data" in status.text.lower():
+            if "big data" in new_text.lower():
                 if new_text.lower().startswith("rt"):
                     return
 
-                if u'¿Sabes qué es Luis Jara?' in new_text and random.random() < 0.9:
+                if u'¿sabes qué es big data?' in new_text.lower() and random.random() < 0.9:
                     return
 
                 if new_text.startswith("@"):
