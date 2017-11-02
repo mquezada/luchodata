@@ -42,10 +42,10 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 return
 
             if "big data" in status.text.lower():
-                if status.text.lower().startswith("rt"):
+                if new_text.lower().startswith("rt"):
                     return
 
-                if 'marketing' in new_text.lower():
+                if u'¿Sabes qué es Luis Jara?' in new_text and random.random() < 0.9:
                     return
 
                 if new_text.startswith("@"):
@@ -66,6 +66,11 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
                 new_text = re.sub(r'sociedad', u'televisión', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'#IA', u'#MG', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'marketing', u'matinal', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'#machinelearning', u'#MuchoGusto', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'inteligencia artificial', u'Paty Maldonado', new_text, flags=re.IGNORECASE)
+
 
                 logging.info(new_text)
 
