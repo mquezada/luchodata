@@ -65,7 +65,7 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'big', 'Luis', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
-                new_text = re.sub(r'sociedad', 'televisión', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'sociedad', 'television', new_text, flags=re.IGNORECASE)
 
                 logging.info(new_text)
 
