@@ -63,7 +63,9 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
                 new_text = re.sub(r'sociedad', u'televisión', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'#IA', u'#MG', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'IA', u'MG', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'machine learning', u'Mucho Gusto', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'business intelligence', u'Buenos Días a Todos', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'marketing', u'matinal', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'#machinelearning', u'#MuchoGusto', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'inteligencia artificial', u'Paty Maldonado', new_text, flags=re.IGNORECASE)
@@ -71,7 +73,7 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
 
                 logging.info(new_text)
 
-                if len(new_text) <= 140:
+                if len(new_text) <= 280:
                     try:
                         if triggers(new_text) or random.random() >= 0.7:
                             api.update_status(new_text)
