@@ -63,7 +63,8 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'data', 'Jara', new_text, flags=re.IGNORECASE)
 
                 new_text = re.sub(r'sociedad', u'televisión', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'IA', u'MG', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'\bIA\b', u'MG', new_text)
+                new_text = re.sub(r'\b#IA\b', u'#MG', new_text)
                 new_text = re.sub(r'machine learning', u'Mucho Gusto', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'business intelligence', u'Buenos Días a Todos', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'marketing', u'matinal', new_text, flags=re.IGNORECASE)
