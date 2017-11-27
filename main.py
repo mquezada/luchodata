@@ -38,6 +38,9 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
             new_text = status.text
             logging.info(new_text)
 
+            if '@' in new_text:
+                return
+
             if "big data" in new_text.lower():
                 if new_text.lower().startswith("rt"):
                     return
