@@ -16,6 +16,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 BIG_DATA = r'([\'\"]?big data[\'\"]?)'
+IA = r'([\'\"]?inteligencia artificial[\'\"]?)'
 
 TRIGGERS = ['emocion', 
             'amor', 
@@ -57,6 +58,8 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'(\bal\b) ' + BIG_DATA, r'a \2', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'(\bdel\b) ' + BIG_DATA, r'de \2', new_text, flags=re.IGNORECASE)
 
+                new_text = re.sub(r'(\be\b) ' + IA, r'y \2', new_text, flags=re.IGNORECASE)
+
                 new_text = re.sub(r'(\w+)(ar)\b ' + BIG_DATA, r'\1\2 a \3', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'(\w+)(er)\b ' + BIG_DATA, r'\1\2 a \3', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'(\w+)(ir)\b ' + BIG_DATA, r'\1\2 a \3', new_text, flags=re.IGNORECASE)
@@ -70,9 +73,10 @@ with codecs.open('luchodata.txt', 'a', encoding='utf-8') as f:
                 new_text = re.sub(r'\b#IA\b', u'#MG', new_text)
                 new_text = re.sub(r'machine learning', u'Mucho Gusto', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'business intelligence', u'Buenos Días a Todos', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(r'business analytics', u'Bienvenidos', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'marketing', u'matinal', new_text, flags=re.IGNORECASE)
                 new_text = re.sub(r'#machinelearning', u'#MuchoGusto', new_text, flags=re.IGNORECASE)
-                new_text = re.sub(r'inteligencia artificial', u'Paty Maldonado', new_text, flags=re.IGNORECASE)
+                new_text = re.sub(IA, u'Paty Maldonado', new_text, flags=re.IGNORECASE)
 
 
                 logging.info(new_text)
